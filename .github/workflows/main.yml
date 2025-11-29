@@ -37,3 +37,9 @@ jobs:
           echo "=== List Attached Role Policies ==="
           aws iam list-attached-role-policies --role-name sts-lab-2-target
         shell: bash
+
+      - name: The Detail of Policies
+        run: |
+          echo "=== The Detail of Policies ==="
+          aws iam get-policy-version --policy-arn arn:aws:iam::***:policy/sts_lab_2_target --version-id v1
+        shell: bash
