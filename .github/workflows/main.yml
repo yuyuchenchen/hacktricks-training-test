@@ -41,3 +41,6 @@ jobs:
 
       - name: Get Policy Version
         run: aws iam get-policy-version --policy-arn $POLICY_ARN --version-id v1
+
+      - name: Get The Secret
+        run: aws secretsmanager get-secret-value --secret-id flag_sts_lab_2
