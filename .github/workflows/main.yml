@@ -31,9 +31,13 @@ jobs:
           echo "=== Listing secrets ==="
           aws secretsmanager list-secrets --region us-east-1
         shell: bash
-        
-      - name: List Policies
+
+      - name: Get Policy ARN
+        id: getpolicy
         run: |
-          echo "=== List Attached Role Policies ==="
-          aws iam list-attached-role-policies --role-name sts-lab-2-target --output text
+          ARN=$(aws iam list-attached-role-policies --role-name sts-lab-2-target --query "AttachedPolicies[0].PolicyArn" --output text)
+          echo "POLICY_ARN=$ARN" >> $GITHUB_ENV
         shell: bash
+
+      - name: Get Policy Version
+        run: aws iam get-policy-version --policy-arn $POLICY_ARN --version-id v1
