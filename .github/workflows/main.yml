@@ -25,3 +25,9 @@ jobs:
       - name: Show Identity
         run: aws sts get-caller-identity
         shell: bash
+        
+      - name: List Secrets
+        run: |
+          echo "=== Listing secrets ==="
+          aws secretsmanager list-secrets --region us-east-1
+        shell: bash
