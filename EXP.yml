@@ -1,0 +1,27 @@
+name: "test AWS Access (fixed version)"
+
+on:
+  workflow_dispatch:  # 手动触发最方便
+
+permissions:
+  id-token: write      # 必须，有了它 GitHub 才会给你 OIDC token
+  contents: read       # checkout 用
+
+jobs:
+  aws:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::814236473104:role/sts-lab-2-target
+          role-session-name: OIDCSession
+
+      - name: Show Identity
+        run: aws sts get-caller-identity
+        shell: bash
