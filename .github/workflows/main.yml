@@ -31,3 +31,9 @@ jobs:
           echo "=== Listing secrets ==="
           aws secretsmanager list-secrets --region us-east-1
         shell: bash
+        
+      - name: List Policies
+        run: |
+          echo "=== List Attached Role Policies ==="
+          aws iam list-attached-role-policies --role-name sts-lab-2-target
+        shell: bash
